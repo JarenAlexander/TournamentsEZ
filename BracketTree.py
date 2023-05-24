@@ -93,13 +93,27 @@ def insertPlayer(playerlist):
             tree.add(playerlist[l*2 - i-1])
     
     return tree
+
+
 '''
 # this is for testing the code
 def test():
     teamlist = ["1","2","3","4"]
+    # testing insert
     t = insertPlayer(teamlist)
     t.BFS()
+
+    # testing remove
     t.removePlayer("3")
+    print()
+    t.BFS()
+
+    # testing add single
+    t.add("3")
+    print()
+    t.BFS()
+
+    # testing winner function
     t.setWinner("1","3:0")
     t.setWinner("4","2:0")
     print()
