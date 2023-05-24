@@ -46,15 +46,15 @@ class Tree():
             if now_node.right != None:
                 queue.append(now_node.right)
 
-    def setWinner(self, team, score):
+    def setWinner(self, player, score):
         if self.root == None:
             return
         queue = []
         queue.append(self.root)
         while queue:
             now_node = queue.pop(0)
-            if now_node.data == team:
-                now_node.parent.data = team
+            if now_node.data == player:
+                now_node.parent.data = player
                 now_node.parent.score = score
                 return
             if now_node.left != None:
@@ -62,22 +62,44 @@ class Tree():
             if now_node.right != None:
                 queue.append(now_node.right)
 
+    def removePlayer(self, player):
+        if self.root == None:
+            return
+        queue = []
+        queue.append(self.root)
+        while queue:
+            now_node = queue.pop(0)
+            if now_node.data == player:
+                if now_node == now_node.parent.left:
+                    now_node.parent.left = None
+                    return
+                elif now_node == now_node.parent.right:
+                    now_node.parent.right = None
+                    return
+            if now_node.left != None:
+                queue.append(now_node.left)
+            if now_node.right != None:
+                queue.append(now_node.right)
 
-def insertTeam(teamlist):
+
+
+def insertPlayer(playerlist):
     tree = Tree()
-    l = len(teamlist)
+    l = len(playerlist)
     for i in range(1, l * 2):
         if i < l:
             tree.add("TBD")
         else:
-            tree.add(teamlist[l*2 - i-1])
+            tree.add(playerlist[l*2 - i-1])
     
     return tree
-
+'''
+# this is for testing the code
 def test():
     teamlist = ["1","2","3","4"]
-    t = insertTeam(teamlist)
+    t = insertPlayer(teamlist)
     t.BFS()
+    t.removePlayer("3")
     t.setWinner("1","3:0")
     t.setWinner("4","2:0")
     print()
@@ -87,5 +109,5 @@ def test():
     t.BFS()
 
 test()
-
+'''
     
