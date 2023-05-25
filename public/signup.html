@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TournamentsEZ - Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+
+  <body class="signup-page">
+    <header>
+      <h1>TournamentsEZ</h1>
+    </header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="host.html">Host</a>
+      <a href="tournament.html">Tournaments</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+    <h2>Sign up for a Tournament</h2>
+
+    <form action="#" method="POST">
+      <label for="tournament-select">Select Tournament:</label>
+      <select id="tournament-select" name="tournament">
+        <option value="" selected disabled>Select a Tournament</option>
+        <!-- Add dynamically generated options for each available tournament -->
+      </select>
+
+      <label for="name-input">Contestant Name:</label>
+      <input type="text" id="name-input" name="name" required />
+
+      <label for="address1-input">Address1:</label>
+      <input type="text" id="address1-input" name="address1" required />
+
+      <label for="address2-input">Address2 (optional):</label>
+      <input type="text" id="address2-input" name="address2" />
+
+      <label for="mailing-address-input">Mailing Address:</label>
+      <input
+        type="text"
+        id="mailing-address-input"
+        name="mailingAddress"
+        required
+      />
+
+      <label for="email-input">Email:</label>
+      <input type="email" id="email-input" name="email" required />
+
+      <label for="phone-input">Phone:</label>
+      <input type="tel" id="phone-input" name="phone" required />
+
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
