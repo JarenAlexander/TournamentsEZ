@@ -23,3 +23,7 @@ def signup():
 @app.route('/tournament')
 def tournament():
     return render_template('tournament.html')
+
+
+if __name__ == '__main__':
+    app.run()
