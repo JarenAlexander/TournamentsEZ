@@ -1,4 +1,4 @@
-from flask import Flask,  render_template
+from flask import Flask,  render_template, url_for
 import sqlite3
 
 app = Flask(__name__)
@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder='public')
 DATABASE = 'database.db'
 
 
-
+app.static_folder = 'static'
 @app.route('/')
 def index():
     return render_template('index.html')
