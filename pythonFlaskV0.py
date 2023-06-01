@@ -12,14 +12,14 @@ app.static_folder = 'static'
 def index():
     return render_template('index.html')
 
-
-def host(/host.html):
+@app.route('/host')
+def host():
     return render_template('host.html')
 
-
-def signup(/signup.html):
+@app.route('signup')
+def signup():
     return render_template('signup.html')
 
-
-def tournament(/tournament.html):
+@app.route('tournament')
+def tournament():
     return render_template('tournament.html')
