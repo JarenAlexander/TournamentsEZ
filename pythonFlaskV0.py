@@ -16,10 +16,10 @@ def index():
 def host():
     return render_template('host.html')
 
-@app.route('signup')
+@app.route('/signup')
 def signup():
     return render_template('signup.html')
 
-@app.route('tournament')
+@app.route('/tournament')
 def tournament():
     return render_template('tournament.html')
