@@ -13,13 +13,13 @@ def index():
     return render_template('index.html')
 
 
-def host():
+def host(/host.html):
     return render_template('host.html')
 
 
-def signup():
+def signup(/signup.html):
     return render_template('signup.html')
 
 
-def tournament():
+def tournament(/tournament.html):
     return render_template('tournament.html')
