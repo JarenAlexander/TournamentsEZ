@@ -1,0 +1,64 @@
+<!-- header -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TournamentsEZ</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>TournamentsEZ</h1>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="host.html">Host</a>
+      <a href="tournament.html">Tournaments</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+
+    <div class="container">
+      <h2>Tournament Information</h2>
+      <form action="/host" method="POST">
+        <label for="tournament-name">Tournament Name:</label>
+        <input
+          type="text"
+          id="tournament-name"
+          name="tournament_name"
+          required
+        /><br /><br />
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required /><br /><br />
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required /><br /><br />
+        <label for="game">Game:</label>
+        <input type="text" id="game" name="game" required /><br /><br />
+
+        <h2>Host Information</h2>
+        <label for="host-name">Host Name:</label>
+        <input
+          type="text"
+          id="host-name"
+          name="host_name"
+          required
+        /><br /><br />
+        <label for="host-email">Host Email:</label>
+        <input
+          type="email"
+          id="host-email"
+          name="host_email"
+          required
+        /><br /><br />
+        <label for="host-phone">Host Phone Number:</label>
+        <input
+          type="tel"
+          id="host-phone"
+          name="host_phone"
+          required
+        /><br /><br />
+
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!-- header -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TournamentsEZ - Tournaments</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>TournamentsEZ</h1>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="host.html">Host</a>
+      <a href="tournament.html">Tournaments</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+
+    <div id="content">
+      <!-- Tournament Page -->
+      <div id="tournament" class="tournament-page">
+        <select id="tournamentSelect">
+          <option disabled selected>Select a tournament</option>
+          <!-- Add more tournament options here -->
+        </select>
+        <button onclick="tournRedirectToSignUp()">Sign Up</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
