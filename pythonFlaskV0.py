@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder='templates')
 DATABASE = 'database.db'
 
 app.static_folder = 'static'
-@app.route("/index.html")
+@app.route("/")
 def home():
     return render_template("index.html")
 
