@@ -1,29 +1,55 @@
-from flask import Flask,  render_template, url_for
+from flask import Flask,  render_template, url_for, request
 import sqlite3
 
 app = Flask(__name__)
-app = Flask(__name__, template_folder='public')
+app = Flask(__name__, template_folder='templates')
 
 DATABASE = 'database.db'
 
-
 app.static_folder = 'static'
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route("/index.html")
+def home():
+    return render_template("index.html")
 
-@app.route('/host')
-def host():
-    return render_template('host.html')
-
-@app.route('/signup')
+@app.route("/signup.html", methods=["GET", "POST"])
 def signup():
-    return render_template('signup.html')
+    if request.method == "POST":
+        tournament = request.form.get("tournament")
+        name = request.form.get("name")
+        address1 = request.form.get("address1")
+        address2 = request.form.get("address2")
+        mailing_address = request.form.get("mailingAddress")
+        email = request.form.get("email")
+        phone = request.form.get("phone")
 
-@app.route('/tournament')
+        # Do something with the form data (e.g., save it to the database)
+
+        return "Form submitted successfully!"  # Or redirect to another page
+    else:
+        return render_template("signup.html")
+
+@app.route("/host.html", methods=["GET", "POST"])
+def host():
+    if request.method == "POST":
+        # Tournament info
+        tournament_name = request.form.get("tournament_name")
+        location = request.form.get("location")
+        date = request.form.get("date")
+        game = request.form.get("game")
+        # Host info
+        host_name = request.form.get("host_name")
+        host_email = request.form.get("host_email")
+        host_phone = request.form.get("host_phone")
+        
+        # Do something with the form data (e.g., save it to the database)
+
+        return "Form submitted successfully!"  # Or redirect to another page
+    else:
+        return render_template("host.html")
+
+@app.route("/tournament.html")
 def tournament():
-    return render_template('tournament.html')
-
+    return render_template("tournament.html")
 
 if __name__ == '__main__':
     app.run()
