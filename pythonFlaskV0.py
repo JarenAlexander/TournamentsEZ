@@ -11,7 +11,7 @@ app.static_folder = 'static'
 def home():
     return render_template("index.html")
 
-@app.route("/signup.html", methods=["GET", "POST"])
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
         tournament = request.form.get("tournament")
@@ -28,7 +28,7 @@ def signup():
     else:
         return render_template("signup.html")
 
-@app.route("/host.html", methods=["GET", "POST"])
+@app.route("/host", methods=["GET", "POST"])
 def host():
     if request.method == "POST":
         # Tournament info
@@ -47,9 +47,14 @@ def host():
     else:
         return render_template("host.html")
 
-@app.route("/tournament.html")
+@app.route("/tournament")
 def tournament():
     return render_template("tournament.html")
+
+@app.route("/bracket")
+def bracket():
+    return render_template("bracket.html")
+    
 
 if __name__ == '__main__':
     app.run()

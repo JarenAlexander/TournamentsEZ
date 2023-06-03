@@ -6,172 +6,127 @@ body {
 }
 
 .container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  flex-direction: column; /* Align elements in a column */
-  width: 800px;
+  max-width: 800px;
   margin: 0 auto;
-  background-color: #fff;
   padding: 20px;
-  margin-top: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Header */
 header {
-  background-color: #03273B;
-  color: #FFFFFF;
+  background-color: #333;
+  color: #fff;
   padding: 20px;
-  text-align: center;
 }
 
+h1 {
+  margin: 0;
+}
+
+/* Navigation */
 nav {
-  background-color: #032030;
-  color: #FFFFFF;
+  background-color: #f4f4f4;
   padding: 10px;
-  text-align: center;
 }
 
 nav a {
-  color: #FFFFFF;
   text-decoration: none;
+  color: #333;
   padding: 10px;
 }
 
-
-/* Front Page Styles */
+/* Home Page */
 .tournament-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 20px;
+  grid-gap: 20px;
 }
 
 .tournament-card {
-  background-color: #EDEDED;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  cursor: pointer;
-}
-
-/* Sign-Up Page Styles */
-.signup-page {
-  text-align: center;
+  background-color: #f4f4f4;
   padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.signup-page h2 {
-  color: #03273B;
-  font-size: 24px;
-  margin-bottom: 20px;
+.tournament-card:hover {
+  transform: translateY(-5px);
 }
 
-.signup-page form {
+/* Signup Page */
+.signup-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
 }
 
-.signup-page label {
+form {
+  width: 400px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
-.signup-page input[type="text"],
-.signup-page input[type="email"],
-.signup-page input[type="tel"] {
-  width: 300px;
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #03273B;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
 }
 
-.signup-page input[type="submit"] {
-  background-color: #03273B;
-  color: #FFFFFF;
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
-/* Host Page Styles */
-.host-page {
-text-align: center;
-padding: 20px;
+input[type="submit"]:hover {
+  background-color: #555;
 }
 
-.host-page h2 {
-color: #03273B;
-font-size: 24px;
-margin-bottom: 20px;
-}
-
-.host-page form {
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-.host-page label {
-font-weight: bold;
-margin-bottom: 10px;
-}
-
-.host-page input[type="text"],
-.host-page input[type="date"] {
-width: 300px;
-padding: 10px;
-border-radius: 5px;
-border: 1px solid #03273B;
-margin-bottom: 10px;
-}
-
-.host-page input[type="submit"] {
-background-color: #03273B;
-color: #FFFFFF;
-border: none;
-padding: 10px 20px;
-border-radius: 5px;
-cursor: pointer;
-}
-
-/* Tournaments Page Styles */
-#content {
-display: flex;
-align-items:first baseline;
-justify-content: center;
-height: 100vh;
-}
-
+/* Tournament Page */
 .tournament-page {
-text-align: center;
-padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 
-.tournament-page h2 {
-color: #03273B;
-font-size: 24px;
-margin-bottom: 20px;
+#tournamentSelect {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
 }
 
-.tournament-page select {
-width: 300px;
-padding: 10px;
-border-radius: 5px;
-border: 1px solid #03273B;
-margin-bottom: 10px;
+/* Bracket Page */
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
 }
 
-.tournament-page button {
-background-color: #03273B;
-color: #FFFFFF;
-border: none;
-padding: 10px 20px;
-border-radius: 5px;
-cursor: pointer;
+/* Shared Styles */
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }

@@ -3,7 +3,10 @@
 <html>
   <head>
     <title>TournamentsEZ</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename= 'css/style.css') }}"
+    />
   </head>
   <body>
     <header>
@@ -11,10 +14,11 @@
     </header>
 
     <nav>
-      <a href="index.html">Home</a>
-      <a href="host.html">Host</a>
-      <a href="tournament.html">Tournaments</a>
-      <a href={{ url_for('signup') }}>Sign Up</a>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('host') }}">Host</a>
+      <a href="{{ url_for('tournament') }}">Tournaments</a>
+      <a href="{{ url_for('signup') }}">Sign Up</a>
+      <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
 
     <p>will eventually add popular tournament cards here</p>
