@@ -1,6 +1,14 @@
+import sqlite3
+
 class Node():
     def __init__(self, data):
-        self.data = data
+
+        self.data = data[0] # There can be no two emails with the same name, so we are using it as the main data member
+        self.fname = data[1]
+        self.lname = data[2]
+        self.phonenum = data[3]
+        self.address = data[4]
+
         self.left = None
         self.parent = None
         self.right = None
@@ -40,21 +48,29 @@ class Tree():
 
         while queue:
             now_node = queue.pop(0)
-            print(now_node.data)
+            if now_node.data != "TBD":
+                name_to_print = now_node.fname + " " + now_node.lname
+            else:
+                name_to_print = "TBD"
+            print(name_to_print)
             if now_node.left != None:
                 queue.append(now_node.left)
             if now_node.right != None:
                 queue.append(now_node.right)
 
-    def setWinner(self, player, score):
+    def setWinner(self, email, score):
         if self.root == None:
             return
         queue = []
         queue.append(self.root)
         while queue:
             now_node = queue.pop(0)
-            if now_node.data == player:
-                now_node.parent.data = player
+            if now_node.data == email:
+                now_node.parent.data = email
+                now_node.parent.fname = now_node.fname
+                now_node.parent.lname = now_node.lname
+                now_node.parent.phonenum = now_node.phonenum
+                now_node.parent.address = now_node.address
                 now_node.parent.score = score
                 return
             if now_node.left != None:
@@ -88,40 +104,66 @@ def insertPlayer(playerlist):
     l = len(playerlist)
     for i in range(1, l * 2):
         if i < l:
-            tree.add("TBD")
+            tree.add(("TBD", None, None, None, None))
         else:
             tree.add(playerlist[l*2 - i-1])
     
     return tree
 
+def loadPlayerData(dbname): 
+    """
+    Loads player data from database with name "dbname" in database folder in directory path ./database/<dbname> into
+    a list of tuples. Each tuple represents a single tournament participant and has the form (email, fname, lname, phonenum, address).
+    """
 
-'''
+    connection_path = "./database/" + str(dbname)
+
+    connection = sqlite3.connect(connection_path) # Connecting to database
+    my_cursor = connection.cursor()
+    my_cursor.execute("PRAGMA foreign_keys = ON;")
+
+    participant_list = []
+
+    player_data = my_cursor.execute("SELECT * FROM Player;")
+    for row in player_data:
+        participant_list.append(row)
+
+    return participant_list
+
 # this is for testing the code
 def test():
+
+    # testing to see if we can load from database
+    db_list = loadPlayerData("proj2_db.sqlite3")
+    for player in db_list:
+        print(player)
+
     teamlist = ["1","2","3","4"]
     # testing insert
-    t = insertPlayer(teamlist)
+    t = insertPlayer(db_list)
     t.BFS()
 
     # testing remove
-    t.removePlayer("3")
+    t.removePlayer("player3@example.com")
     print()
     t.BFS()
 
     # testing add single
-    t.add("3")
+    player_3 = ("player3@example.com", "Mike", "Johnson", "5555545555", "789 Oak Road, Villagetown")
+    t.add(player_3)
     print()
     t.BFS()
 
+    # PAUSE HERE
     # testing winner function
-    t.setWinner("1","3:0")
-    t.setWinner("4","2:0")
+    t.setWinner("player2@example.com","3:0")
+    t.setWinner("player7@example.com","2:0")
     print()
     t.BFS()
-    t.setWinner("1","3:0")
+    t.setWinner("player6@example.com","3:0")
+    t.setWinner("player6@example.com","3:0")
     print()
     t.BFS()
 
 test()
-'''
     
