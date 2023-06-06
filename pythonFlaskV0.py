@@ -59,11 +59,23 @@ def host():
         date = request.form.get('date')
         game = request.form.get('game')
         
-        # Save the data to the database
+        # Save the host data to the database
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game) VALUES (?, ?, ?, ?, ?, ?)",
-                       (tournament_name, host_email, phonenum, location, date, game))
+        
+        # Check if the host already exists in the Host table
+        cursor.execute("SELECT * FROM Host WHERE email = ?", (host_email,))
+        existing_host = cursor.fetchone()
+        
+        if existing_host is None:
+            # Create a new host
+            cursor.execute("INSERT INTO Host (email, fname, lname, phonenum, address) VALUES (?, ?, ?, ?, ?)",
+                           (host_email, '', '', phonenum, ''))
+        
+        # Save the tournament data to the Tournament table
+        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game, host_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                       (tournament_name, '', '', location, date, game, host_email))
+        
         conn.commit()
         cursor.close()
         conn.close()
@@ -84,6 +96,7 @@ def host():
     # Handle the case when the method is not allowed
     else:
         return "Method Not Allowed", 405
+
 
 
 # Route for tournament page
