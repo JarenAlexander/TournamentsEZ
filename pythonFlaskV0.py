@@ -1,16 +1,35 @@
-from flask import Flask,  render_template, url_for, request
+from flask import Flask, render_template, url_for, request
 import sqlite3
 
 app = Flask(__name__)
 app = Flask(__name__, template_folder='templates')
 
-DATABASE = 'database.db'
+DATABASE = 'database/proj2_db.sqlite3'
 
 app.static_folder = 'static'
+
+# Establish a database connection
+def get_db_connection():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# Fetch all tournaments from the database
+def fetch_tournaments():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM Tournament")
+    tournaments = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return tournaments
+
+# Route for home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
+# Route for signup page
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
@@ -28,33 +47,63 @@ def signup():
     else:
         return render_template("signup.html")
 
+# Route for host page
 @app.route("/host", methods=["GET", "POST"])
 def host():
-    if request.method == "POST":
-        # Tournament info
-        tournament_name = request.form.get("tournament_name")
-        location = request.form.get("location")
-        date = request.form.get("date")
-        game = request.form.get("game")
-        # Host info
-        host_name = request.form.get("host_name")
-        host_email = request.form.get("host_email")
-        host_phone = request.form.get("host_phone")
+    if request.method == 'POST':
+        # Get the form data
+        tournament_name = request.form.get('tournament_name')
+        host_email = request.form.get('host_email')
+        phonenum = request.form.get('host_phone')
+        location = request.form.get('location')
+        date = request.form.get('date')
+        game = request.form.get('game')
         
-        # Do something with the form data (e.g., save it to the database)
+        # Save the data to the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game) VALUES (?, ?, ?, ?, ?, ?)",
+                       (tournament_name, host_email, phonenum, location, date, game))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        # Fetch the updated tournament list
+        tournaments = fetch_tournaments()
+        
+        # Render the host.html template with the updated tournaments and reset the form
+        return render_template('host.html', tournaments=tournaments)
 
-        return "Form submitted successfully!"  # Or redirect to another page
+    elif request.method == 'GET':
+        # Fetch the tournament list
+        tournaments = fetch_tournaments()
+        
+        # Handle the GET method (display the form with the tournaments)
+        return render_template('host.html', tournaments=tournaments)
+
+    # Handle the case when the method is not allowed
     else:
-        return render_template("host.html")
+        return "Method Not Allowed", 405
 
-@app.route("/tournament")
+
+# Route for tournament page
+@app.route('/tournament')
 def tournament():
-    return render_template("tournament.html")
+    # Fetch the tournaments from the database
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Tournament")
+    tournaments = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    # Pass the tournaments to the template
+    return render_template('tournament.html', tournaments=tournaments)
 
+# Route for bracket page
 @app.route("/bracket")
 def bracket():
     return render_template("bracket.html")
     
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

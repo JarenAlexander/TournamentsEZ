@@ -1,19 +1,19 @@
-<!-- header -->
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>TournamentsEZ - Tournaments</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename= 'css/style.css') }}"
-    />
+    <head>
+      <meta charset="UTF-8" />
+      <title>TournamentsEZ - Sign Up</title>
+      <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename= 'css/style.css') }}"
+      />
+    </head>
   </head>
   <body>
     <header>
       <h1>TournamentsEZ</h1>
     </header>
-
     <nav>
       <a href="{{ url_for('home') }}">Home</a>
       <a href="{{ url_for('host') }}">Host</a>
@@ -21,18 +21,16 @@
       <a href="{{ url_for('signup') }}">Sign Up</a>
       <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
-
-    <div id="content">
-      <!-- Tournament Page -->
-      <div id="tournament" class="tournament-page">
-        <select id="tournamentSelect">
-          <option disabled selected>Select a tournament</option>
-          <!-- Add more tournament options here -->
-        </select>
-        <button onclick="tournRedirectToSignUp()">Sign Up</button>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
+    <form action="/host" method="POST">
+      <label for="tournament_name">Tournament Name:</label>
+      <select name="tournament_name" id="tournament_name">
+        {% for tournament in tournaments %}
+        <option value="{{ tournament.name }}">{{ tournament.name }}</option>
+        {% endfor %}
+      </select>
+      <br /><br />
+      <!-- Add other form fields here -->
+      <input type="submit" value="Submit" />
+    </form>
   </body>
 </html>

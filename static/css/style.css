@@ -117,14 +117,6 @@ input[type="submit"]:hover {
   border: 1px solid #ccc;
 }
 
-/* Bracket Page */
-#content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-}
-
 /* Shared Styles */
 h2 {
   margin-top: 20px;

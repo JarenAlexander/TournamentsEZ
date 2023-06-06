@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TournamentsEZ</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename= 'css/style.css') }}"
+    />
+    <style>
+      table.bracket {
+        border-collapse: collapse;
+        border: none;
+      }
+
+      .bracket td {
+        vertical-align: middle;
+        width: 40em;
+        margin: 0;
+        padding: 10px;
+      }
+
+      .bracket td p {
+        border-bottom: solid 1px black;
+        margin: 0;
+        padding: 5px;
+      }
+
+      .bracket th {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>TournamentsEZ</h1>
+    </header>
+
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('host') }}">Host</a>
+      <a href="{{ url_for('tournament') }}">Tournaments</a>
+      <a href="{{ url_for('signup') }}">Sign Up</a>
+      <a href="{{ url_for('bracket') }}">Bracket</a>
+    </nav>
+    <table summary="Tournament Bracket" class="bracket">
+      <tr>
+        <th>Semi-Finals<br />June 8th</th>
+        <th>Championship<br />June 9th</th>
+        <th>Champion</th>
+      </tr>
+      <tr>
+        <td>
+          <p>Participant 1</p>
+        </td>
+        <td rowspan="2">
+          <p>Champion</p>
+        </td>
+        <td rowspan="4">
+          <p>Champion</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Participant 2</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Participant 3</p>
+        </td>
+        <td rowspan="2">
+          <p>Finalist 1</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Participant 4</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
