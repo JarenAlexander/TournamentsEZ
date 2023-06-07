@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, request
+from BracketTree import insertPlayer, test
 import sqlite3
 
 app = Flask(__name__)
@@ -24,28 +25,102 @@ def fetch_tournaments():
     conn.close()
     return tournaments
 
+def generate_tournament_bracket(selected_tournament):
+    # Fetch the players for the selected tournament from the database
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM Player WHERE tournament = ?", (selected_tournament,))
+    players = [row[0] for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+
+    # Generate the tournament bracket based on the number of players
+    bracket = []
+    num_players = len(players)
+    num_rounds = int(math.log(num_players, 2))
+    num_matches = int(num_players / 2)
+
+    for _ in range(num_rounds):
+        round_matches = []
+        for _ in range(num_matches):
+            if players:
+                participant1 = players.pop(0)
+            else:
+                participant1 = None
+
+            if players:
+                participant2 = players.pop(0)
+            else:
+                participant2 = None
+
+            match = (participant1, participant2)
+            round_matches.append(match)
+
+        bracket.append(round_matches)
+        num_matches = int(num_matches / 2)
+
+    return bracket
+
+
 # Route for home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# Route for signup page
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    if request.method == "POST":
-        tournament = request.form.get("tournament")
-        name = request.form.get("name")
-        address1 = request.form.get("address1")
-        address2 = request.form.get("address2")
-        mailing_address = request.form.get("mailingAddress")
-        email = request.form.get("email")
-        phone = request.form.get("phone")
+    # Fetch the tournaments from the database
+    tournaments = fetch_tournaments()
 
-        # Do something with the form data (e.g., save it to the database)
+    if request.method == 'POST':
+        # Get the form data
+        tournament_name = request.form.get('tournament_name')
+        player_email = request.form.get('player_email')
+        phonenum = request.form.get('player_phone')
+        location = request.form.get('location')
+        date = request.form.get('date')
+        game = request.form.get('game')
 
-        return "Form submitted successfully!"  # Or redirect to another page
+        # Save the player data to the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Check if the player already exists in the Player table
+        cursor.execute("SELECT * FROM Player WHERE email = ?", (player_email,))
+        existing_player = cursor.fetchone()
+
+        if existing_player is None:
+            # Create a new player
+            cursor.execute("INSERT INTO Player (email, fname, lname, phonenum, address) VALUES (?, ?, ?, ?, ?)",
+                           (player_email, '', '', phonenum, ''))
+
+        # Save the tournament data to the Tournament table
+        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game, host_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                       (tournament_name, '', '', location, date, game, ''))
+
+        # Save the player-tournament association to the PlayerTournament table
+        cursor.execute("INSERT INTO PlayerTournament (player_email, tournament_name) VALUES (?, ?)",
+                       (player_email, tournament_name))
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        # Fetch the updated tournament list
+        tournaments = fetch_tournaments()
+
+        # Render the signup.html template with the updated tournaments and reset the form
+        return render_template('signup.html', tournaments=tournaments)
+
+    elif request.method == 'GET':
+        # Handle the GET method (display the form with the tournaments)
+        return render_template('signup.html', tournaments=tournaments)
+
+    # Handle the case when the method is not allowed
     else:
-        return render_template("signup.html")
+        return "Method Not Allowed", 405
+
+ 
 
 # Route for host page
 @app.route("/host", methods=["GET", "POST"])
@@ -98,25 +173,50 @@ def host():
         return "Method Not Allowed", 405
 
 
-
-# Route for tournament page
-@app.route('/tournament')
+@app.route('/tournament', methods=['GET', 'POST'])
 def tournament():
     # Fetch the tournaments from the database
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Tournament")
-    tournaments = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    # Pass the tournaments to the template
+    tournaments = fetch_tournaments()
+    
+    if request.method == 'POST':
+        # Get the selected tournament name from the form
+        selected_tournament = request.form.get('tournament_name')
+
+        # Fetch the players in the selected tournament from the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT Player.* FROM Player JOIN PlayerTournament ON Player.email = PlayerTournament.player_email WHERE PlayerTournament.tournament_name = ?", (selected_tournament,))
+        players = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        # Check if the tournament already exists
+        if selected_tournament in [tournament['name'] for tournament in tournaments]:
+            # Tournament already exists, display the players in the tournament
+            return render_template('tournament.html', tournaments=tournaments, selected_tournament=selected_tournament, players=players)
+
+        # Tournament is new, add it to the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO Tournament (name) VALUES (?)", (selected_tournament,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        # Display an empty player list for the new tournament
+        return render_template('tournament.html', tournaments=tournaments, selected_tournament=selected_tournament, players=[])
+    
+    # Handle GET request, display the tournaments
     return render_template('tournament.html', tournaments=tournaments)
 
-# Route for bracket page
-@app.route("/bracket")
+
+
+# Route for tournament bracket page
+@app.route('/bracket', methods=['GET', 'POST'])
 def bracket():
-    return render_template("bracket.html")
+
+        return render_template('bracket.html')
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

@@ -26,7 +26,9 @@
       <label for="tournament-select">Select Tournament:</label>
       <select id="tournament-select" name="tournament">
         <option value="" selected disabled>Select a Tournament</option>
-        <!-- Add dynamically generated options for each available tournament -->
+        {% for tournament in tournaments %}
+        <option value="{{ tournament[0] }}">{{ tournament[0] }}</option>
+        {% endfor %}
       </select>
 
       <label for="name-input">Contestant Name:</label>

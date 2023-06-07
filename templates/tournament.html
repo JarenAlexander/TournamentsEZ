@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <head>
-      <meta charset="UTF-8" />
-      <title>TournamentsEZ - Sign Up</title>
-      <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename= 'css/style.css') }}"
-      />
-    </head>
+    <meta charset="UTF-8" />
+    <title>TournamentsEZ - Tournament</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
   </head>
   <body>
     <header>
@@ -21,7 +19,7 @@
       <a href="{{ url_for('signup') }}">Sign Up</a>
       <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
-    <form action="/host" method="POST">
+    <form action="/tournament" method="POST">
       <label for="tournament_name">Tournament Name:</label>
       <select name="tournament_name" id="tournament_name">
         {% for tournament in tournaments %}
@@ -29,8 +27,16 @@
         {% endfor %}
       </select>
       <br /><br />
-      <!-- Add other form fields here -->
       <input type="submit" value="Submit" />
     </form>
+
+    {% if players %}
+    <h2>Players in {{ selected_tournament }}:</h2>
+    <ul>
+      {% for player in players %}
+      <li>{{ player.fname }} {{ player.lname }} ({{ player.email }})</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </body>
 </html>
