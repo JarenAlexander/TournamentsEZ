@@ -117,6 +117,7 @@ def loadPlayerData(dbname):
     """
 
     connection_path = "./database/" + str(dbname)
+    print(connection_path)
 
     connection = sqlite3.connect(connection_path) # Connecting to database
     my_cursor = connection.cursor()

@@ -1,4 +1,5 @@
 -- SQLite
+-- Checking which users are participating in Super Smash Showdown
 SELECT Player.fname, Player.lname, Player.email
 FROM Player 
     JOIN PlayerTournament ON (Player.email = PlayerTournament.player_email)
