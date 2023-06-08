@@ -141,7 +141,7 @@ def loadPlayerData(tournament_name):
 def test():
 
     # testing to see if we can load from database
-    db_list = loadPlayerData("proj2_db.sqlite3")
+    db_list = loadPlayerData("Super Smash Showdown")
     for player in db_list:
         print(player)
 
