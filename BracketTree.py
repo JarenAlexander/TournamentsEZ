@@ -117,7 +117,6 @@ def loadPlayerData(tournament_name):
     """
 
     connection = sqlite3.connect("./database/proj2_db.sqlite3") # Connecting to database
-    print(f" Connection path: {connection}")
     print(f"Tournament name: {tournament_name}")
     my_cursor = connection.cursor()
     my_cursor.execute("PRAGMA foreign_keys = ON;")
@@ -125,12 +124,9 @@ def loadPlayerData(tournament_name):
     participant_list = []
 
 
-
-    player_data = my_cursor.execute(
-        """SELECT Player.email, Player.fname, Player.lname, Player.phonenum, Player.address
-        FROM Player JOIN PlayerTournament ON (Player.email = PlayerTournament.player_email JOIN Tournament ON 
-            (PlayerTournament.tournament_name = Tournament.name 
-        WHERE Tournament.name = ?""" (tournament_name))
+    select_query = """SELECT * FROM Player JOIN PlayerTournament ON (Player.email=PlayerTournament.player_email) JOIN Tournament ON (PlayerTournament.tournament_name=Tournament.name) WHERE Tournament.name=(?)""" 
+    my_cursor.execute(select_query, (tournament_name,))
+    player_data = my_cursor.fetchall()
     for row in player_data:
         participant_list.append(row)
         print(f"Row: {row}")
