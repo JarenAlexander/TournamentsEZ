@@ -24,7 +24,7 @@
 
     <form action="/signup" method="POST">
       <label for="tournament-select">Select Tournament:</label>
-      <select id="tournament-select" name="tournament">
+      <select id="tournament-select" name="tournament-select">
         <option value="" selected disabled>Select a Tournament</option>
         {% for tournament in tournaments %}
         <option value="{{ tournament[0] }}">{{ tournament[0] }}</option>
