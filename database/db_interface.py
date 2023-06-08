@@ -1,17 +1,15 @@
-
-
 import sqlite3
 
-connection = sqlite3.connect("./proj2_db.sqlite3") # Connecting to database
+connection = sqlite3.connect("proj2_db.sqlite3") # Connecting to database
 
 my_cursor = connection.cursor()
 
-with open("./loadscript.sql") as fin:
-    sql_script = fin.read()
+# with open("loadscript.sql") as fin:
+    # sql_script = fin.read()
 
 my_cursor.execute("PRAGMA foreign_keys = ON;")
 
-my_cursor.executescript(sql_script) # Creating database
+# my_cursor.executescript(sql_script) # Creating database
 
 # Host/player format: (email, fname, lname, phonenum, address)
 # Tournament format: (name, email, phonenum, address, url, date, game, host_email)
@@ -87,8 +85,6 @@ my_cursor.executemany("""INSERT INTO PlayerTournament (tournament_name, player_e
     (?, ?)""", playertournament_list)
 
 # connection.commit() # Uncomment this to actually commit the changes to the DB
-
-# DEBUG TODO: Try inputting a non-int value as a phone number
 
 
 my_cursor.close()
