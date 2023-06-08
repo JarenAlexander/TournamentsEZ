@@ -49,8 +49,8 @@ def signup():
     if request.method == 'POST':
         # Get the form data
         tournament_name = request.form.get('tournament-selected')
-        player_email = request.form.get('player_email')
-        phonenum = request.form.get('player_phone')
+        player_email = request.form.get('email')
+        phonenum = request.form.get('phone')
         fname = request.form.get('fname')
         lname = request.form.get('lname')
         address = request.form.get('address')
