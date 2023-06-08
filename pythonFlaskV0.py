@@ -122,8 +122,8 @@ def host():
                            (host_email, fname, lname, phonenum, ''))
         
         # Save the tournament data to the Tournament table
-        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game, host_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                       (tournament_name, '', '', location, date, game, host_email))
+        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, url, date, game, host_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                       (tournament_name, '', '', location, '', date, game, host_email))
         
         conn.commit()
         cursor.close()
