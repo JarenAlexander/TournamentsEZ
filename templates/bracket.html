@@ -41,36 +41,41 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
-      var players = {{ pl|tojson }};
-
+      var players = {{ players|tojson }};
+    
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
-
+    
       function drawTree(node, x, y, level) {
         if (!node) return;
-
+    
         var radius = 30;
-            var offsetX = 60;
-            var offsetY = 60;
-            var nodeX = x + level * offsetX;
-            var nodeY = y;
-
-            context.beginPath();
-            context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
-            context.fillStyle = "lightblue";
-            context.fill();
-            context.stroke();
-
-            context.fillStyle = "black";
-            context.textAlign = "center";
-            context.textBaseline = "middle";
-            context.fillText(node, nodeX, nodeY);
-
-            drawTree(players[2 * level + 1], nodeX, nodeY + offsetY, level + 1);
-
-            drawTree(players[2 * level + 2], nodeX, nodeY - offsetY, level + 1);
+        var offsetX = 60;
+        var offsetY = 60;
+        var nodeX = x + level * offsetX;
+        var nodeY = y;
+    
+        context.beginPath();
+        context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
+        context.fillStyle = "lightblue";
+        context.fill();
+        context.stroke();
+    
+        context.fillStyle = "black";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(node, nodeX, nodeY);
+    
+        if (players[2 * level + 1]) {
+          drawTree(players[2 * level + 1], nodeX, nodeY + offsetY, level + 1);
+        }
+    
+        if (players[2 * level + 2]) {
+          drawTree(players[2 * level + 2], nodeX, nodeY - offsetY, level + 1);
+        }
       }
-      drawTree(players[0], 400, 50, 0)
+      
+      drawTree(players[0], 400, 50, 0);
     </script>
     {% endif %}
   </body>
