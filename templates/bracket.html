@@ -32,16 +32,6 @@
 
     {% if selected_tournament and bracket %}
     <h2>Bracket for {{ selected_tournament }}</h2>
-    <table>
-      {% for round in bracket %}
-      <tr>
-        {% for match in round %}
-        <td>{{ match.data if match.data else 'TBD' }}</td>
-        <td>vs</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
     {% endif %}
   </body>
 </html>
