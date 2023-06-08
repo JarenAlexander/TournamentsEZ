@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tournament Bracket</title>
+    <meta charset="UTF-8" />
+    <title>TournamentsEZ - Bracket</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
   </head>
   <body>
-    <h1>Tournament Bracket</h1>
-
+    <header>
+      <h1>TournamentsEZ</h1>
+    </header>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('host') }}">Host</a>
+      <a href="{{ url_for('tournament') }}">Tournaments</a>
+      <a href="{{ url_for('signup') }}">Sign Up</a>
+      <a href="{{ url_for('bracket') }}">Bracket</a>
+    </nav>
+    
     <form action="/bracket" method="POST">
       <label for="tournament_name">Select a Tournament:</label>
       <select name="tournament_name" id="tournament_name">
