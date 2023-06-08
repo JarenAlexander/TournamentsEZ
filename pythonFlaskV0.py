@@ -69,6 +69,8 @@ def signup():
                            (player_email, fname, lname, phonenum, address))
 
         # Save the player-tournament association to the PlayerTournament table
+        print(f"Inserting email into PlayerTournament: {player_email}")
+        print(f"Inserting tournament name into PlayerTournament: {tournament_name}")
         cursor.execute("INSERT INTO PlayerTournament (player_email, tournament_name) VALUES (?, ?)",
                        (player_email, tournament_name))
 
