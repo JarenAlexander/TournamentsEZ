@@ -99,6 +99,8 @@ def host():
         # Get the form data
         tournament_name = request.form.get('tournament_name')
         host_email = request.form.get('host_email')
+        fname = request.form.get('host_fname')
+        lname = request.form.get('host_lname')
         phonenum = request.form.get('host_phone')
         location = request.form.get('location')
         date = request.form.get('date')
@@ -115,7 +117,7 @@ def host():
         if existing_host is None:
             # Create a new host
             cursor.execute("INSERT INTO Host (email, fname, lname, phonenum, address) VALUES (?, ?, ?, ?, ?)",
-                           (host_email, '', '', phonenum, ''))
+                           (host_email, fname, lname, phonenum, ''))
         
         # Save the tournament data to the Tournament table
         cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game, host_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
