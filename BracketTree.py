@@ -110,24 +110,26 @@ def insertPlayer(playerlist):
     
     return tree
 
-def loadPlayerData(dbname): 
+def loadPlayerData(tournament_name): 
     """
     Loads player data from database with name "dbname" in database folder in directory path ./database/<dbname> into
     a list of tuples. Each tuple represents a single tournament participant and has the form (email, fname, lname, phonenum, address).
     """
 
-    connection_path = "./database/" + str(dbname)
-    print(connection_path)
-
-    connection = sqlite3.connect(connection_path) # Connecting to database
+    connection = sqlite3.connect("./database/proj2_db.sqlite3") # Connecting to database
+    print(f" Connection path: {connection}")
+    print(f"Tournament name: {tournament_name}")
     my_cursor = connection.cursor()
     my_cursor.execute("PRAGMA foreign_keys = ON;")
 
     participant_list = []
 
-    player_data = my_cursor.execute("SELECT * FROM Player;")
+
+
+    player_data = my_cursor.execute("SELECT * FROM Player WHERE Tournament.tournament_name=?", (tournament_name))
     for row in player_data:
         participant_list.append(row)
+        print(f"Row: {row}")
 
     return participant_list
 
