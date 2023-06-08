@@ -51,8 +51,8 @@ def signup():
         tournament_name = request.form.get('tournament-selected')
         player_email = request.form.get('player_email')
         phonenum = request.form.get('player_phone')
-        fname = request.form.get('fname')
-        lname = request.form.get('lname')
+        fname = request.form.get('fname-input')
+        lname = request.form.get('lname-input')
         game = request.form.get('game')
 
         # Save the player data to the database
