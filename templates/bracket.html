@@ -32,12 +32,11 @@
 
     {% if selected_tournament %}
     <h2>Bracket for {{ selected_tournament }}</h2>
-    {% for player in tournaments %}
-    <p>
-      {{player.fname}}
-      {{player.lname}}
-    </p>
-    {% endfor%}
+    <ul>
+      {% for player in player_tree %}
+      <li>{{ player.fname }} {{ player.lname }}</li>
+      {% endfor %}
+    </ul>
     {% endif %}
   </body>
 </html>
