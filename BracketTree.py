@@ -126,7 +126,11 @@ def loadPlayerData(tournament_name):
 
 
 
-    player_data = my_cursor.execute("SELECT * FROM Player WHERE Tournament.name=?", (tournament_name))
+    player_data = my_cursor.execute(
+        """SELECT Player.email, Player.fname, Player.lname, Player.phonenum, Player.address
+        FROM Player JOIN PlayerTournament ON (Player.email = PlayerTournament.player_email JOIN Tournament ON 
+            (PlayerTournament.tournament_name = Tournament.name 
+        WHERE Tournament.name = ?""" (tournament_name))
     for row in player_data:
         participant_list.append(row)
         print(f"Row: {row}")
