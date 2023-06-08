@@ -58,6 +58,26 @@ class Tree():
             if now_node.right != None:
                 queue.append(now_node.right)
 
+    def BFSList(self):
+        if self.root == None:
+            return
+        tl = []
+        queue = []
+        queue.append(self.root)
+
+        while queue:
+            now_node = queue.pop(0)
+            if now_node.data != "TBD":
+                name_to_print = now_node.fname + " " + now_node.lname
+            else:
+                name_to_print = "TBD"
+            tl.append(name_to_print)
+            if now_node.left != None:
+                queue.append(now_node.left)
+            if now_node.right != None:
+                queue.append(now_node.right)
+        return tl
+
     def setWinner(self, email, score):
         if self.root == None:
             return
@@ -167,6 +187,8 @@ def test():
     t.setWinner("player6@example.com","3:0")
     print()
     t.BFS()
+    print()
+    print(t.BFSList())
 
 test()
     
