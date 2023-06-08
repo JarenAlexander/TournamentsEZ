@@ -32,6 +32,24 @@
 
     {% if selected_tournament %}
     <h2>Bracket for {{ selected_tournament }}</h2>
+    {% if player_tree %}
+    <ul class="tournament-bracket">
+      {% for round in player_tree %}
+      <li>
+        <ul class="round">
+          {% for match in round %}
+          <li class="match">
+            <span class="player">{{ match[0] }}</span>
+            <span class="vs">vs</span>
+            <span class="player">{{ match[1] }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No bracket generated for this tournament.</p>
     {% endif %}
   </body>
 </html>

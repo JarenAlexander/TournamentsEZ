@@ -159,7 +159,7 @@ def test():
 
     # PAUSE HERE
     # testing winner function
-    t.setWinner("player2@example.com","3:0")
+    t.setWinner("player3@example.com","3:0")
     t.setWinner("player7@example.com","2:0")
     print()
     t.BFS()
