@@ -53,8 +53,8 @@ def signup():
         phonenum = request.form.get('player_phone')
         fname = request.form.get('fname-input')
         lname = request.form.get('lname-input')
-        game = request.form.get('game')
-
+        address = request.form.get('address-input')
+        
         # Save the player data to the database
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -66,11 +66,7 @@ def signup():
         if existing_player is None:
             # Create a new player
             cursor.execute("INSERT INTO Player (email, fname, lname, phonenum, address) VALUES (?, ?, ?, ?, ?)",
-                           (player_email, '', '', phonenum, ''))
-
-        # Save the tournament data to the Tournament table
-        cursor.execute("INSERT INTO Tournament (name, email, phonenum, address, date, game, host_email) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                       (tournament_name, '', '', location, date, game, ''))
+                           (player_email, fname, lname, phonenum, address))
 
         # Save the player-tournament association to the PlayerTournament table
         cursor.execute("INSERT INTO PlayerTournament (player_email, tournament_name) VALUES (?, ?)",
