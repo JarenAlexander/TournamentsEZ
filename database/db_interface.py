@@ -11,7 +11,7 @@ with open("./loadscript.sql") as fin:
 
 my_cursor.execute("PRAGMA foreign_keys = ON;")
 
-# my_cursor.executescript(sql_script) # Creating database
+my_cursor.executescript(sql_script) # Creating database
 
 # Host/player format: (email, fname, lname, phonenum, address)
 # Tournament format: (name, email, phonenum, address, url, date, game, host_email)

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request
-from BracketTree import insertPlayer, test
+from BracketTree import Tree, insertPlayer, loadPlayerData, test
 import sqlite3
 
 app = Flask(__name__)
@@ -27,39 +27,13 @@ def fetch_tournaments():
 
 def generate_tournament_bracket(selected_tournament):
     # Fetch the players for the selected tournament from the database
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT name FROM Player WHERE tournament = ?", (selected_tournament,))
-    players = [row[0] for row in cursor.fetchall()]
-    cursor.close()
-    conn.close()
+    player_list = loadPlayerData(selected_tournament)  # Assuming selected_tournament is the database name
+    player_tree = insertPlayer(player_list)
 
-    # Generate the tournament bracket based on the number of players
-    bracket = []
-    num_players = len(players)
-    num_rounds = int(math.log(num_players, 2))
-    num_matches = int(num_players / 2)
+    # Perform any required operations on the player_tree
 
-    for _ in range(num_rounds):
-        round_matches = []
-        for _ in range(num_matches):
-            if players:
-                participant1 = players.pop(0)
-            else:
-                participant1 = None
+    return player_tree
 
-            if players:
-                participant2 = players.pop(0)
-            else:
-                participant2 = None
-
-            match = (participant1, participant2)
-            round_matches.append(match)
-
-        bracket.append(round_matches)
-        num_matches = int(num_matches / 2)
-
-    return bracket
 
 
 # Route for home page
@@ -211,12 +185,31 @@ def tournament():
 
 
 
-# Route for tournament bracket page
 @app.route('/bracket', methods=['GET', 'POST'])
 def bracket():
+    # Fetch the tournaments from the database
+    tournaments = fetch_tournaments()
 
-        return render_template('bracket.html')
+    if request.method == 'POST':
+        # Get the selected tournament name from the form
+        selected_tournament = request.form.get('tournament_name')
+
+        # Load player data for the selected tournament
+        player_list = loadPlayerData(selected_tournament)
+
+        # Generate the tournament bracket using the Tree class
+        player_tree = insertPlayer(player_list)
+
+        # Perform any required operations on the player_tree
+
+        # Render the bracket.html template with the tournament data and bracket
+        return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, bracket=player_tree)
+
+    # Handle GET request, display the tournaments
+    return render_template('bracket.html', tournaments=tournaments)
+
+
     
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
