@@ -24,7 +24,7 @@
       <a href="{{ url_for('signup') }}">Sign Up</a>
       <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
-    
+    <div class="container">
       <form action="/bracket" method="POST">
         <label for="tournament_name">Select a Tournament:</label>
         <select name="tournament_name" id="tournament_name">
@@ -34,7 +34,7 @@
         </select>
         <button type="submit">Generate Bracket</button>
       </form>
-    
+    </div>
 
     {% if selected_tournament %}
     <h2>Bracket for {{ selected_tournament }}</h2>
