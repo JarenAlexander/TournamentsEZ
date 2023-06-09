@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <title>TournamentsEZ - Bracket</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>TournamentsEZ</h1>
+    </header>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('host') }}">Host</a>
+      <a href="{{ url_for('tournament') }}">Tournaments</a>
+      <a href="{{ url_for('signup') }}">Sign Up</a>
+      <a href="{{ url_for('bracket') }}">Bracket</a>
+    </nav>
+    <div class="container">
+      <form action="/bracket" method="POST">
+        <label for="tournament_name">Select a Tournament:</label>
+        <select name="tournament_name" id="tournament_name">
+          {% for tournament in tournaments %}
+          <option value="{{ tournament.name }}">{{ tournament.name }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit">Generate Bracket</button>
+      </form>
+    
+
+    {% if selected_tournament %}
+    <h2>Bracket for {{ selected_tournament }}</h2>
+    </div>
+    
+    <canvas id="treeCanvas" width="1200" height="1200"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
+    <script>
+      
+      var canvas = d3.select("#treeCanvas");
+      var context = canvas.node().getContext("2d");
+
+      function drawTree(playerNames, x, y, node1, level, parentX, parentY) {
+        if (node1 >= playerNames.length) return;
+
+        var width = 80;
+        var height = 40;
+        var offsetX = 160;
+        var boxheight = 900;
+        var numNodes = 2 ** (level + 2);
+        var offsetY1 = boxheight/numNodes;
+        var nodeX = x + offsetX;
+        var nodeY = y;
+
+        context.fillStyle = "lightblue";
+        context.fillRect(nodeX - width / 2, nodeY - height / 2, width, height);
+        context.strokeStyle = "black";
+        context.strokeRect(nodeX - width / 2, nodeY - height / 2, width, height);
+
+        context.fillStyle = "black";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(playerNames[node1], nodeX, nodeY);
+        
+          if (parentX !== null && parentY !== null) {
+            // Calculate the coordinates of the middle edge of the parent node
+            var parentEdgeX = parentX + 40;
+            var parentEdgeY = parentY;
+
+            // Draw line connecting the node to the middle edge of its parent
+            context.beginPath();
+            context.moveTo(parentEdgeX, parentEdgeY);
+            context.lineTo(parentEdgeX + 20, parentEdgeY);
+            context.lineTo(parentEdgeX + 20, nodeY);
+            context.lineTo(nodeX - 40, nodeY);
+            context.stroke();
+          }
+
+        drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * node1 + 1, level + 1, nodeX, nodeY);
+        drawTree(playerNames, nodeX, nodeY - offsetY1, 2 * node1 + 2, level + 1, nodeX, nodeY);
+      }
+
+      var playerNames = {{ pl | tojson }};
+      drawTree(playerNames, canvas.node().width / 16, 600, 0, 0, null, null);
+    </script>
+    
+    
+    {% endif %}
+  </body>
+</html>
