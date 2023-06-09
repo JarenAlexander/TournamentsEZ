@@ -70,10 +70,14 @@
         context.fillText(playerNames[node1], nodeX, nodeY);
         
           if (parentX !== null && parentY !== null) {
-            // Draw line connecting the node to its parent
+            // Calculate the coordinates of the middle edge of the parent node
+            var parentEdgeX = parentX;
+            var parentEdgeY = parentY + height / 2;
+
+            // Draw line connecting the node to the middle edge of its parent
             context.beginPath();
-            context.moveTo(parentX, parentY);
-            context.lineTo(nodeX, nodeY);
+            context.moveTo(parentEdgeX, parentEdgeY);
+            context.lineTo(nodeX, nodeY - height / 2);
             context.stroke();
           }
 
