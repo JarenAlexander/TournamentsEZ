@@ -51,7 +51,7 @@
       var context = canvas.node().getContext("2d");
 
       function drawTree(playerNames, x, y, node1, level) {
-        if (level >= playerNames.length) return;
+        if (node1 >= playerNames.length) return;
 
         var radius = 30;
         var offsetX = 70;
