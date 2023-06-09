@@ -71,13 +71,13 @@
         
           if (parentX !== null && parentY !== null) {
             // Calculate the coordinates of the middle edge of the parent node
-            var parentEdgeX = parentX;
-            var parentEdgeY = parentY + height / 2;
+            var parentEdgeX = parentX + 80;
+            var parentEdgeY = parentY;
 
             // Draw line connecting the node to the middle edge of its parent
             context.beginPath();
             context.moveTo(parentEdgeX, parentEdgeY);
-            context.lineTo(nodeX, nodeY - height / 2);
+            context.lineTo(nodeX - 80, nodeY);
             context.stroke();
           }
 
