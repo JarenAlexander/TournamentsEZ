@@ -42,7 +42,7 @@
        {{player}}
     {% endfor %}
     
-    <canvas id="treeCanvas" width="800" height="600"></canvas>
+    <canvas id="treeCanvas" width="1200" height="900"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
@@ -51,15 +51,20 @@
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
 
+<<<<<<< HEAD
       function drawTree(node, x, y, level, players) {
         if (!node) return;
+=======
+      function drawTree(playerNames, x, y, level) {
+        if (level >= playerNames.length) return;
+>>>>>>> 405566f880954dbe7a7e5d12083781e2c19e3b5d
 
         var radius = 30;
-        var offsetX = 40;
-        var baseOffsetY = 100; // Base vertical offset
-        var offsetY1 = baseOffsetY + level * 50; // Increase offsetY1 with the level
-        var offsetY2 = baseOffsetY - level * 30; // Decrease offsetY2 with the level
-        var nodeX = x + level * offsetX;
+        var offsetX = 60;
+        var baseOffsetY = 1200;
+        var offsetY1 = baseOffsetY + baseOffsetY/(level * level);
+        var offsetY2 = baseOffsetY - baseOffsetY/(level * level);
+        var nodeX = x + offsetX;
         var nodeY = y;
 
         context.beginPath();
@@ -71,8 +76,9 @@
         context.fillStyle = "black";
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.fillText(node, nodeX, nodeY);
+        context.fillText(playerNames[level], nodeX, nodeY);
 
+<<<<<<< HEAD
         if (players[2 * level + 1]) {
           drawTree(players[2 * level + 1], nodeX + (offsetX * (level + 1)), nodeY + (offsetY1), level + 1, players);
         }
@@ -83,6 +89,14 @@
       }
        
       drawTree(pl[0], canvas.node().width / 4, 300, 0, pl);
+=======
+        drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * level + 1);
+        drawTree(playerNames, nodeX, nodeY - offsetY2, 2 * level + 2);
+      }
+
+      var playerNames = {{ pl | tojson }};
+      drawTree(playerNames, canvas.node().width / 10, 450, 0);
+>>>>>>> 405566f880954dbe7a7e5d12083781e2c19e3b5d
     </script>
     
     
