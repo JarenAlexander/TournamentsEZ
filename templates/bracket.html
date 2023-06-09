@@ -50,19 +50,19 @@
       function drawTree(playerNames, x, y, node1, level) {
         if (node1 >= playerNames.length) return;
 
-        var radius = 40;
+        var width = 80;
+        var height = 40;
         var offsetX = 100;
-        var height = 900;
+        var boxheight = 900;
         var numNodes = 2 ** (level + 2);
-        var offsetY1 = height/numNodes;
+        var offsetY1 = boxheight/numNodes;
         var nodeX = x + offsetX;
         var nodeY = y;
 
-        context.beginPath();
-        context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
         context.fillStyle = "lightblue";
-        context.fill();
-        context.stroke();
+        context.fillRect(nodeX - width / 2, nodeY - height / 2, width, height);
+        context.strokeStyle = "black";
+        context.strokeRect(nodeX - width / 2, nodeY - height / 2, width, height);
 
         context.fillStyle = "black";
         context.textAlign = "center";
