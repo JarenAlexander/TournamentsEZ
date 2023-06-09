@@ -46,14 +46,18 @@
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
 
+      // Set the canvas size
+      canvas.attr("width", 800);
+      canvas.attr("height", 600);
+
       function drawTree(node, x, y, level) {
         if (!node) return;
 
-        var radius = 10;
-        var offsetX = 20;
-        var offsetY = 20;
+        var radius = 20;  // Increase the radius for larger nodes
+        var offsetX = 40;  // Increase the offset for more space between nodes horizontally
+        var offsetY = 60;  // Increase the offset for more space between nodes vertically
         var nodeX = x + level * offsetX;
-        var nodeY = y;
+        var nodeY = y + level * offsetY;
 
         context.beginPath();
         context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
@@ -71,11 +75,17 @@
         }
 
         if (players[2 * level + 2]) {
-          drawTree(players[2 * level + 2], nodeX, nodeY - offsetY, level + 1);
+          drawTree(players[2 * level + 2], nodeX, nodeY + offsetY, level + 1);
         }
       }
 
-      drawTree(players[0], canvas.node().width / 2, 10, 0);
+      // Calculate the initial coordinates to center the tree
+      var canvasWidth = canvas.node().width;
+      var canvasHeight = canvas.node().height;
+      var initialX = canvasWidth / 2;
+      var initialY = canvasHeight / 2 - offsetY;  // Adjust the Y-coordinate to center the tree vertically
+
+      drawTree(players[0], initialX, initialY, 0);
     </script>
     
     {% endif %}
