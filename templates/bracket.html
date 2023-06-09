@@ -56,7 +56,8 @@
         var radius = 30;
         var offsetX = 70;
         var height = 900;
-        var offsetY1 = height/(level + 3);
+        var numNodes = 2 ** (level + 2);
+        var offsetY1 = height/numNodes;
         var nodeX = x + offsetX;
         var nodeY = y;
 
