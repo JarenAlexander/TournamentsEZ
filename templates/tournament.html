@@ -19,16 +19,18 @@
       <a href="{{ url_for('signup') }}">Sign Up</a>
       <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
-    <form action="/tournament" method="POST">
-      <label for="tournament_name">Tournament Name:</label>
-      <select name="tournament_name" id="tournament_name">
-        {% for tournament in tournaments %}
-        <option value="{{ tournament.name }}">{{ tournament.name }}</option>
-        {% endfor %}
-      </select>
-      <br /><br />
-      <input type="submit" value="Submit" />
-    </form>
+    <div class="container">
+      <form action="/tournament" method="POST">
+        <label for="tournament_name">Tournament Name:</label>
+        <select name="tournament_name" id="tournament_name">
+          {% for tournament in tournaments %}
+          <option value="{{ tournament.name }}">{{ tournament.name }}</option>
+          {% endfor %}
+        </select>
+        <br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
 
     {% if players %}
     <h2>Players in {{ selected_tournament }}:</h2>
