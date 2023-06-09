@@ -52,7 +52,7 @@
 
         var width = 80;
         var height = 40;
-        var offsetX = 100;
+        var offsetX = 160;
         var boxheight = 900;
         var numNodes = 2 ** (level + 2);
         var offsetY1 = boxheight/numNodes;
@@ -77,6 +77,8 @@
             // Draw line connecting the node to the middle edge of its parent
             context.beginPath();
             context.moveTo(parentEdgeX, parentEdgeY);
+            context.lineTo(parentEdgeX + 20, parentEdgeY);
+            context.lineTo(parentEdgeX + 20, nodeY);
             context.lineTo(nodeX - 80, nodeY);
             context.stroke();
           }
