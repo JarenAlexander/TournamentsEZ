@@ -50,8 +50,8 @@
       function drawTree(playerNames, x, y, node1, level) {
         if (node1 >= playerNames.length) return;
 
-        var radius = 30;
-        var offsetX = 70;
+        var radius = 40;
+        var offsetX = 100;
         var height = 900;
         var numNodes = 2 ** (level + 2);
         var offsetY1 = height/numNodes;
@@ -74,7 +74,7 @@
       }
 
       var playerNames = {{ pl | tojson }};
-      drawTree(playerNames, canvas.node().width / 10, 600, 0, 0);
+      drawTree(playerNames, canvas.node().width / 12, 600, 0, 0);
     </script>
     
     
