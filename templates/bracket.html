@@ -48,30 +48,47 @@
     
       function drawTree(node, x, y, level) {
         if (!node) return;
-    
+
         var radius = 10;
         var offsetX = 20;
-        var offsetY = 20;
+        var offsetY = 40;
         var nodeX = x + level * offsetX;
         var nodeY = y;
-    
-        context.beginPath();
-        context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
-        context.fillStyle = "lightblue";
-        context.fill();
-        context.stroke();
-    
-        context.fillStyle = "black";
-        context.textAlign = "center";
-        context.textBaseline = "middle";
-        context.fillText(node, nodeX, nodeY);
-    
-        if (players[2 * level + 1]) {
-          drawTree(players[2 * level + 1], nodeX, nodeY + offsetY, level + 1);
+
+        if (node === "TBD") {
+          context.beginPath();
+          context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
+          context.fillStyle = "gray";
+          context.fill();
+          context.stroke();
+
+          context.fillStyle = "white";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillText(node, nodeX, nodeY);
+        } else {
+          context.beginPath();
+          context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
+          context.fillStyle = "lightblue";
+          context.fill();
+          context.stroke();
+
+          context.fillStyle = "black";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillText(node[1], nodeX, nodeY);
         }
-    
-        if (players[2 * level + 2]) {
-          drawTree(players[2 * level + 2], nodeX, nodeY - offsetY, level + 1);
+
+        if (Array.isArray(node[0])) {
+          drawTree(node[0], nodeX, nodeY - offsetY, level + 1);
+        } else {
+          drawTree(node[0], nodeX, nodeY - offsetY, level + 1);
+        }
+
+        if (Array.isArray(node[1])) {
+          drawTree(node[1], nodeX, nodeY + offsetY, level + 1);
+        } else {
+          drawTree(node[1], nodeX, nodeY + offsetY, level + 1);
         }
       }
       
