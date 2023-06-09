@@ -54,9 +54,8 @@
         if (level >= playerNames.length) return;
 
         var radius = 30;
-        var offsetX = 60;
+        var offsetX = 70;
         var offsetY1 = y + y/2;
-        var offsetY2 = y - y/2;
         var nodeX = x + offsetX;
         var nodeY = y;
 
@@ -72,7 +71,7 @@
         context.fillText(playerNames[level], nodeX, nodeY);
 
         drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * level + 1);
-        drawTree(playerNames, nodeX, nodeY - offsetY2, 2 * level + 2);
+        drawTree(playerNames, nodeX, nodeY - offsetY1, 2 * level + 2);
       }
 
       var playerNames = {{ pl | tojson }};
