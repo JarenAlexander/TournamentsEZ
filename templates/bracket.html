@@ -38,11 +38,15 @@
 
     {% if selected_tournament %}
     <h2>Bracket for {{ selected_tournament }}</h2>
+    {% for player in pl %}
+       {{player}}
+    {% endfor %}
+    
     <canvas id="treeCanvas" width="800" height="600"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
-      var players = {{ pl | tojson }};;
+      var players = {{ pl | tojson }};
 
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
