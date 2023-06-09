@@ -42,17 +42,22 @@
        {{player}}
     {% endfor %}
     
-    <canvas id="treeCanvas" width="800" height="600"></canvas>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
       var players = {{ pl | tojson }};
 
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
+      var drawnNodes = new Set();
 
       function drawTree(node, x, y, level) {
         if (!node) return;
+
+        var nodeId = level + "-" + node;
+
+        if (drawnNodes.has(nodeId)) return;
+
+        drawnNodes.add(nodeId);
 
         var radius = 30;
         var offsetX = 40;
@@ -81,11 +86,6 @@
           drawTree(players[2 * level + 2], nodeX + (offsetX * (level + 1)), nodeY - (offsetY2), level + 1);
         }
       }
-        
-        
-        
-        
-        
 
       drawTree(players[0], canvas.node().width / 4, 300, 0);
     </script>
