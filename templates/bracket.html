@@ -42,7 +42,7 @@
        {{player}}
     {% endfor %}
     
-    <canvas id="treeCanvas" width="800" height="600"></canvas>
+    <canvas id="treeCanvas" width="1200" height="900"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
@@ -58,7 +58,7 @@
         var baseOffsetY = 100;
         var offsetY1 = baseOffsetY + level * 50;
         var offsetY2 = baseOffsetY - level * 30;
-        var nodeX = x + level * offsetX;
+        var nodeX = x + offsetX;
         var nodeY = y;
 
         context.beginPath();
