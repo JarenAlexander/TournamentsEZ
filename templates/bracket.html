@@ -24,7 +24,7 @@
       <a href="{{ url_for('signup') }}">Sign Up</a>
       <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
-    <div class="container">
+    
       <form action="/bracket" method="POST">
         <label for="tournament_name">Select a Tournament:</label>
         <select name="tournament_name" id="tournament_name">
@@ -50,11 +50,11 @@
       function drawTree(node, x, y, level) {
         if (!node) return;
 
-        var radius = 10;  // Increase the radius for larger nodes
-        var offsetX = 20;  // Increase the offset for more space between nodes horizontally
-        var offsetY = 20;  // Increase the offset for more space between nodes vertically
+        var radius = 10;
+        var offsetX = 20;
+        var offsetY = 20;
         var nodeX = x + level * offsetX;
-        var nodeY = y + level * offsetY;
+        var nodeY = y;
 
         context.beginPath();
         context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
@@ -76,14 +76,9 @@
         }
       }
 
-      // Calculate the initial coordinates to center the tree
-      
-      var initialX = 400 / 2;
-      var initialY = 300 / 2 - offsetY;  // Adjust the Y-coordinate to center the tree vertically
-
       drawTree(players[0], canvas.node().width / 2, 10, 0);
     </script>
-    </div>
+    
     
     {% endif %}
   </body>
