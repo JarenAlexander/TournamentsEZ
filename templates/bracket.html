@@ -50,7 +50,7 @@
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
 
-      function drawTree(playerNames, x, y, level) {
+      function drawTree(playerNames, x, y, node1, level) {
         if (level >= playerNames.length) return;
 
         var radius = 30;
@@ -70,14 +70,14 @@
         context.fillStyle = "black";
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.fillText(playerNames[level], nodeX, nodeY);
+        context.fillText(playerNames[node1], nodeX, nodeY);
 
-        drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * level + 1);
-        drawTree(playerNames, nodeX, nodeY - offsetY1, 2 * level + 2);
+        drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * node1 + 1, level + 1);
+        drawTree(playerNames, nodeX, nodeY - offsetY1, 2 * node1 + 2, level + 1);
       }
 
       var playerNames = {{ pl | tojson }};
-      drawTree(playerNames, canvas.node().width / 10, 450, 0);
+      drawTree(playerNames, canvas.node().width / 10, 450, 0, 0);
     </script>
     
     
