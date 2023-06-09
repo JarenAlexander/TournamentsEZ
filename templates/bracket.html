@@ -47,7 +47,7 @@
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
 
-      function drawTree(playerNames, x, y, node1, level) {
+      function drawTree(playerNames, x, y, node1, level, parentX, parentY) {
         if (node1 >= playerNames.length) return;
 
         var width = 80;
@@ -68,13 +68,21 @@
         context.textAlign = "center";
         context.textBaseline = "middle";
         context.fillText(playerNames[node1], nodeX, nodeY);
+        
+          if (parentX !== null && parentY !== null) {
+            // Draw line connecting the node to its parent
+            context.beginPath();
+            context.moveTo(parentX, parentY);
+            context.lineTo(nodeX, nodeY);
+            context.stroke();
+          }
 
-        drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * node1 + 1, level + 1);
-        drawTree(playerNames, nodeX, nodeY - offsetY1, 2 * node1 + 2, level + 1);
+        drawTree(playerNames, nodeX, nodeY + offsetY1, 2 * node1 + 1, level + 1, nodeX, nodeY);
+        drawTree(playerNames, nodeX, nodeY - offsetY1, 2 * node1 + 2, level + 1, nodeX, nodeY);
       }
 
       var playerNames = {{ pl | tojson }};
-      drawTree(playerNames, canvas.node().width / 12, 600, 0, 0);
+      drawTree(playerNames, canvas.node().width / 12, 600, 0, 0, null, null);
     </script>
     
     
