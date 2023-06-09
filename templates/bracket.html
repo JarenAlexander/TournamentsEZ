@@ -37,7 +37,7 @@
 
     {% if selected_tournament %}
     <h2>Bracket for {{ selected_tournament }}</h2>
-    <canvas id="treeCanvas" width="8000" height="6000"></canvas>
+    <canvas id="treeCanvas" width="800" height="600"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
@@ -49,9 +49,9 @@
       function drawTree(node, x, y, level) {
         if (!node) return;
     
-        var radius = 30;
-        var offsetX = 60;
-        var offsetY = 60;
+        var radius = 10;
+        var offsetX = 20;
+        var offsetY = 20;
         var nodeX = x + level * offsetX;
         var nodeY = y;
     
@@ -75,7 +75,7 @@
         }
       }
       
-      drawTree(players[0], 400, 50, 0);
+      drawTree(players[0], 40, 5, 0);
     </script>
     
     {% endif %}
