@@ -44,6 +44,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script>
+      var players = {{ pl | tojson }};
 
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
@@ -86,7 +87,7 @@
         }
       }
 
-      drawTree(pl[0], canvas.node().width / 4, 300, 0);
+      drawTree(players[0], canvas.node().width / 4, 300, 0);
     </script>
     
     
