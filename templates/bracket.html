@@ -50,7 +50,28 @@
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
 
-      function drawTree(pl, node, x, y, level) {
+      function constructBinaryTree(pl) {
+        var tree = {};
+
+        function buildTree(index) {
+          if (index >= pl.length || pl[index] === "TBD") {
+            return null;
+          }
+
+          var node = {
+            data: pl[index],
+            left: buildTree(2 * index + 1),
+            right: buildTree(2 * index + 2),
+          };
+
+          return node;
+        }
+
+        tree.root = buildTree(0);
+        return tree;
+      }
+
+      function drawTree(node, x, y, level) {
         if (!node) return;
 
         var radius = 30;
@@ -70,18 +91,17 @@
         context.fillStyle = "black";
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.fillText(node, nodeX, nodeY);
+        context.fillText(node.data, nodeX, nodeY);
 
-        if (pl[2 * level + 1]) {
-          drawTree(pl, pl[2 * level + 1], nodeX, nodeY + offsetY1, level + 1);
-        }
-
-        if (pl[2 * level + 2]) {
-          drawTree(pl, pl[2 * level + 2], nodeX, nodeY - offsetY2, level + 1);
-        }
+        drawTree(node.left, nodeX, nodeY + offsetY1, level + 1);
+        drawTree(node.right, nodeX, nodeY - offsetY2, level + 1);
       }
 
-      drawTree({{ pl | tojson }}, "{{ pl[0] }}", canvas.node().width / 4, 300, 0);
+      // Convert the pl list to a binary tree
+      var tree = constructBinaryTree({{ pl | tojson }});
+
+      // Draw the tree
+      drawTree(tree.root, canvas.node().width / 4, 300, 0);
     </script>
     
     
