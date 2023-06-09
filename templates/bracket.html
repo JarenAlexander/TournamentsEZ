@@ -34,7 +34,7 @@
         </select>
         <button type="submit">Generate Bracket</button>
       </form>
-    </div>
+    
 
     {% if selected_tournament %}
     <h2>Bracket for {{ selected_tournament }}</h2>
@@ -83,6 +83,7 @@
 
       drawTree(players[0], canvas.node().width / 2, 10, 0);
     </script>
+    </div>
     
     {% endif %}
   </body>
