@@ -51,44 +51,33 @@
 
         var radius = 10;
         var offsetX = 20;
-        var offsetY = 40;
+        var offsetY = 20;
         var nodeX = x + level * offsetX;
         var nodeY = y;
 
-        if (node === "TBD") {
-          context.beginPath();
-          context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
-          context.fillStyle = "gray";
-          context.fill();
-          context.stroke();
+        context.beginPath();
+        context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
+        context.fillStyle = "lightblue";
+        context.fill();
+        context.stroke();
 
-          context.fillStyle = "white";
-          context.textAlign = "center";
-          context.textBaseline = "middle";
+        context.fillStyle = "black";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+
+        if (node !== "TBD") {
+          var playerName = node.fname + " " + node.lname;
+          context.fillText(playerName, nodeX, nodeY);
+        } else {
           context.fillText(node, nodeX, nodeY);
-        } else {
-          context.beginPath();
-          context.arc(nodeX, nodeY, radius, 0, 2 * Math.PI);
-          context.fillStyle = "lightblue";
-          context.fill();
-          context.stroke();
-
-          context.fillStyle = "black";
-          context.textAlign = "center";
-          context.textBaseline = "middle";
-          context.fillText(node[1], nodeX, nodeY);
         }
 
-        if (Array.isArray(node[0])) {
-          drawTree(node[0], nodeX, nodeY - offsetY, level + 1);
-        } else {
-          drawTree(node[0], nodeX, nodeY - offsetY, level + 1);
+        if (node.left) {
+          drawTree(node.left, nodeX, nodeY + offsetY, level + 1);
         }
 
-        if (Array.isArray(node[1])) {
-          drawTree(node[1], nodeX, nodeY + offsetY, level + 1);
-        } else {
-          drawTree(node[1], nodeX, nodeY + offsetY, level + 1);
+        if (node.right) {
+          drawTree(node.right, nodeX, nodeY - offsetY, level + 1);
         }
       }
       
