@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Name Groups</title>
+    <style>
+        .group {
+            margin-bottom: 20px;
+            border: 1px solid black;
+            padding: 10px;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .name-box {
+            border: 1px solid black;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-box {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .dropdown-box.winner:before {
+            content: "Winner";
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div id="groupsContainer"></div>
+    <button id="submitButton" class="submit-btn" disabled>Submit</button>
+
+    <script>
+        var nameList = ["John", "Jane", "Michael", "Emily", "David", "Sarah"]; // Replace with your list of names
+        var dropdowns = [];
+
+        function generateGroups() {
+            var groupsContainer = document.getElementById("groupsContainer");
+            groupsContainer.innerHTML = '';
+
+            if (nameList.length % 2 !== 0) {
+                nameList.push(""); // Add an empty string if the number of names is odd
+            }
+
+            for (var i = 0; i < nameList.length; i += 2) {
+                var groupDiv = document.createElement("div");
+                groupDiv.classList.add('group');
+                var name1 = nameList[i] || '';
+                var name2 = nameList[i + 1] || '';
+
+                var nameBox1 = document.createElement("div");
+                nameBox1.classList.add('name-box');
+                nameBox1.textContent = name1;
+
+                var nameBox2 = document.createElement("div");
+                nameBox2.classList.add('name-box');
+                nameBox2.textContent = name2;
+
+                var dropdown = createDropdown([name1, name2]);
+                dropdown.classList.add('dropdown-box');
+                dropdown.addEventListener('change', checkDropdowns);
+
+                dropdowns.push(dropdown);
+
+                groupDiv.appendChild(nameBox1);
+                groupDiv.appendChild(nameBox2);
+                groupDiv.appendChild(dropdown);
+
+                groupsContainer.appendChild(groupDiv);
+            }
+        }
+
+        function createDropdown(names) {
+            var dropdown = document.createElement("select");
+            dropdown.classList.add('winner');
+
+            var defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.textContent = "Winner";
+            dropdown.appendChild(defaultOption);
+
+            for (var i = 0; i < names.length; i++) {
+                var option = document.createElement("option");
+                option.value = names[i];
+                option.textContent = names[i];
+
+                dropdown.appendChild(option);
+            }
+
+            return dropdown;
+        }
+
+        function checkDropdowns() {
+            var allSelected = dropdowns.every(function(dropdown) {
+                return dropdown.value !== '';
+            });
+
+            var submitButton = document.getElementById("submitButton");
+            submitButton.disabled = !allSelected;
+        }
+
+        function generateSelectedGroups() {
+            var selectedNames = dropdowns.map(function(dropdown) {
+                return dropdown.value || '';
+            });
+
+            var selectedGroupsContainer = document.createElement("div");
+            selectedGroupsContainer.innerHTML = "<h3>Selected Groups</h3>";
+
+            var nextGroupNames = [];
+            for (var j = 0; j < selectedNames.length; j += 2) {
+                var groupDiv = document.createElement("div");
+                groupDiv.classList.add('group');
+                var name1 = selectedNames[j] || '';
+                var name2 = selectedNames[j + 1] || '';
+
+                var nameBox1 = document.createElement("div");
+                nameBox1.classList.add('name-box');
+                nameBox1.textContent = name1;
+
+                var nameBox2 = document.createElement("div");
+                nameBox2.classList.add('name-box');
+                nameBox2.textContent = name2;
+
+                var dropdown = createDropdown([name1, name2]);
+                dropdown.classList.add('dropdown-box');
+                dropdown.addEventListener('change', checkDropdowns);
+
+                dropdowns.push(dropdown);
+
+                groupDiv.appendChild(nameBox1);
+                groupDiv.appendChild(nameBox2);
+                groupDiv.appendChild(dropdown);
+
+                selectedGroupsContainer.appendChild(groupDiv);
+
+                nextGroupNames.push(name1, name2);
+            }
+
+            var groupsContainer = document.getElementById("groupsContainer");
+            groupsContainer.appendChild(selectedGroupsContainer);
+
+            nameList = nextGroupNames;
+            dropdowns = [];
+            generateGroups();
+        }
+
+        // Call the function initially to generate the groups
+        generateGroups();
+
+        var submitButton = document.getElementById("submitButton");
+        submitButton.addEventListener('click', generateSelectedGroups);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
