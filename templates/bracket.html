@@ -47,10 +47,6 @@
       var canvas = d3.select("#treeCanvas");
       var context = canvas.node().getContext("2d");
 
-      // Set the canvas size
-      canvas.attr("width", 800);
-      canvas.attr("height", 600);
-
       function drawTree(node, x, y, level) {
         if (!node) return;
 
@@ -81,10 +77,9 @@
       }
 
       // Calculate the initial coordinates to center the tree
-      var canvasWidth = canvas.node().width;
-      var canvasHeight = canvas.node().height;
-      var initialX = canvasWidth / 2;
-      var initialY = canvasHeight / 2 - offsetY;  // Adjust the Y-coordinate to center the tree vertically
+      
+      var initialX = 400 / 2;
+      var initialY = 300 / 2 - offsetY;  // Adjust the Y-coordinate to center the tree vertically
 
       drawTree(players[0], initialX, initialY, 0);
     </script>
