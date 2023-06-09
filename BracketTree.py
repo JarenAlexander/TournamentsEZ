@@ -52,7 +52,7 @@ class Tree():
                 name_to_print = now_node.fname + " " + now_node.lname
             else:
                 name_to_print = "TBD"
-            print(name_to_print)
+            # print(name_to_print)
             if now_node.left != None:
                 queue.append(now_node.left)
             if now_node.right != None:
