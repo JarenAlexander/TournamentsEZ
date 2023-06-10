@@ -207,7 +207,7 @@ def bracket():
         return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, pl = pl, player_list = player_list)
 
     # Handle GET request, display the tournaments
-    return render_template('bracket.html', tournaments=tournaments, player_list = player_list)
+    return render_template('bracket.html', tournaments=tournaments)
 
 
     
