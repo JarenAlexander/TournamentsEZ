@@ -35,7 +35,7 @@ Last Modified: 6/9/2023
       <a href="{{ url_for('bracket') }}">Bracket</a>
     </nav>
     <div class="container">
-      <form action="/bracket" method="POST">
+      <form action="/bracket" method="PUT">
         <label for="tournament_name">Select a Tournament:</label>
         <select name="tournament_name" id="tournament_name">
           {% for tournament in tournaments %}
@@ -48,7 +48,7 @@ Last Modified: 6/9/2023
 
     {% if selected_tournament %}
     <div class="container">
-        <form action="/bracket" method="PUT">
+        <form action="/bracket" method="POST">
           <label for="winner_name">Select a Winner:</label>
           <select name="winner_name" id="winner_name">
             {% for player in players_name %}

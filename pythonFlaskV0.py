@@ -200,7 +200,7 @@ def bracket():
     # Fetch the tournaments from the database
     tournaments = fetch_tournaments()
 
-    if request.method == 'POST':
+    if request.method == 'PUT':
         # Get the selected tournament name from the form
         selected_tournament = request.form.get('tournament_name')
 
@@ -217,7 +217,7 @@ def bracket():
         # Render the bracket.html template with the tournament data and bracket
         return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, pl = pl, players_name = players_name)
     
-    if request.method == 'PUT':
+    if request.method == 'POST':
         # Get the selected tournament name from the form
         selected_tournament = request.form.get('tournament_name')
         selected_winner = request.form.get('winner_name')
