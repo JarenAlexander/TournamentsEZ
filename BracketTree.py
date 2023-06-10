@@ -1,3 +1,13 @@
+"""
+This is the Python code that defines the logic for the tournament bracket and its actions.
+
+Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
+
+Group Name: TournamentsEZ
+
+Last Modified: 6/9/2023
+"""
+
 import sqlite3
 
 class Node():
