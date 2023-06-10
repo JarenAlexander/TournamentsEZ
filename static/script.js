@@ -1,3 +1,15 @@
+/*
+
+This is the JavaScript that helps format our frontend web pages.
+
+Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
+
+Group Name: TournamentsEZ
+
+Last Modification Date: 6/9/2023
+
+*/
+
 
 window.addEventListener('DOMContentLoaded', function() {
     var tournamentName = localStorage.getItem('selectedTournament');
