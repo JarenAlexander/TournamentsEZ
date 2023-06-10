@@ -50,6 +50,9 @@ Last Modified: 6/9/2023
     <div class="container">
         <form action="/bracket" method="POST">
           <label for="winner_name">Select a Winner:</label>
+          <var name="tournament_name1" id="tournament_name1">
+            {{selected_tournament}}
+          </var>
           <select name="winner_name" id="winner_name">
             {% for player in players_name %}
             <option value="{{ player }}">{{ player }}</option>
