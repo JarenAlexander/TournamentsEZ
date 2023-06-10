@@ -1,3 +1,15 @@
+/*
+
+This is a sample query, used for testing, that checks which player has the email 'player9@example.com'
+
+Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
+
+Group Name: TournamentsEZ
+
+Last Modification Date: 6/9/2023
+
+*/
+
 -- SQLite
 SELECT Tournament.name
 FROM Tournament
