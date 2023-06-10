@@ -63,6 +63,30 @@ class Tree():
             if now_node.right != None:
                 queue.append(now_node.right)
 
+    def getPlayerList(self):
+        # this function is for just get the player full name
+        # it will use the BFS to get each player's name
+        if self.root == None:
+            #the tree is empty
+            return
+        playerList = []
+        queue = []
+        queue.append(self.root)
+
+        while queue:
+            # each time just get the first one from the queue
+            # then git it's left and right children and put them in the last of the queue
+            now_node = queue.pop(0)
+            if now_node.data != "TBD":
+                playername = now_node.fname + " " + now_node.lname
+                playerList.append(playername)
+
+            if now_node.left != None:
+                queue.append(now_node.left)
+            if now_node.right != None:
+                queue.append(now_node.right)
+        return playerList
+
     def BFSList(self):
         # same way with the BFS function just put the name into the list
         # this function is use for get the data and put in to the html
