@@ -219,7 +219,6 @@ def bracket():
     
     if request.method == 'POST':
         # Get the selected tournament name from the form
-        selected_tournament = request.form.get('tournament_name')
         selected_winner = request.form.get('winner_name')
 
         # Load player data for the selected tournament
