@@ -1,3 +1,15 @@
+/*
+
+This code is the SQLite code for getting the initial database set up.
+
+Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
+
+Group Name: TournamentsEZ
+
+Last Modification Date: 6/9/2023
+
+*/
+
 BEGIN;
 CREATE TABLE IF NOT EXISTS Player (email TEXT PRIMARY KEY, fname TEXT NOT NULL, lname TEXT NOT NULL, phonenum TEXT, address TEXT);
 CREATE TABLE IF NOT EXISTS Host (email TEXT PRIMARY KEY, fname TEXT NOT NULL, lname TEXT NOT NULL, phonenum TEXT, address TEXT);
