@@ -41,7 +41,7 @@
         <form action="/bracket" method="POST">
           <label for="winner_name">Select a Winner:</label>
           <select name="winner_name" id="winner_name">
-            {% for player in pl %}
+            {% for player in player_list %}
             <option value="{{ player }}">{{ player }}</option>
             {% endfor %}
           </select>
