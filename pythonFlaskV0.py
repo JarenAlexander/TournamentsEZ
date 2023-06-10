@@ -185,7 +185,7 @@ def tournament():
 
 
 
-@app.route('/bracket', methods=['GET', 'POST'])
+@app.route('/bracket', methods=['GET', 'POST', 'PUT'])
 def bracket():
     # Fetch the tournaments from the database
     tournaments = fetch_tournaments()
@@ -206,6 +206,27 @@ def bracket():
 
         # Render the bracket.html template with the tournament data and bracket
         return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, pl = pl, players_name = players_name)
+    
+    if request.method == 'PUT':
+        # Get the selected tournament name from the form
+        selected_tournament = request.form.get('tournament_name')
+        selected_winner = request.form.get('winner_name')
+
+        # Load player data for the selected tournament
+        player_list = loadPlayerData(selected_tournament)
+
+        # Generate the tournament bracket using the Tree class
+        player_tree = insertPlayer(player_list)
+        player_tree(selected_winner)
+        pl = player_tree.BFSList()
+        players_name = player_tree.getPlayerList()
+        
+
+        # Perform any required operations on the player_tree
+
+        # Render the bracket.html template with the tournament data and bracket
+        return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, pl = pl, players_name = players_name)
+
 
     # Handle GET request, display the tournaments
     return render_template('bracket.html', tournaments=tournaments)

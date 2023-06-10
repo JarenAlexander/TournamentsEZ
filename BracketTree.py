@@ -79,7 +79,8 @@ class Tree():
             now_node = queue.pop(0)
             if now_node.data != "TBD":
                 playername = now_node.fname + " " + now_node.lname
-                playerList.append(playername)
+                if playername not in playerList:
+                    playerList.append(playername)
 
             if now_node.left != None:
                 queue.append(now_node.left)
