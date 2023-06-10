@@ -1,3 +1,14 @@
+"""
+This code is a Python interface for setting up the SQLite database. It is not used by the final product, and is only included to disclose
+how the database was created.
+
+Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
+
+Group Name: TournamentsEZ
+
+Last Modification Date: 6/9/2023
+"""
+
 import sqlite3
 
 connection = sqlite3.connect("proj2_db.sqlite3") # Connecting to database
