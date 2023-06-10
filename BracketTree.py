@@ -13,7 +13,6 @@ class Node():
         self.left = None
         self.parent = None
         self.right = None
-        self.score = None
 
 class Tree():
     def __init__(self):
@@ -86,10 +85,9 @@ class Tree():
                 queue.append(now_node.right)
         return tl
 
-    def setWinner(self, email, score):
+    def setWinner(self, email):
         # using the player's email to search the winner
         # afer just set the player to their uper layer
-        # and put the score the player got in laste match 
         if self.root == None:
             return
         queue = []
@@ -102,7 +100,6 @@ class Tree():
                 now_node.parent.lname = now_node.lname
                 now_node.parent.phonenum = now_node.phonenum
                 now_node.parent.address = now_node.address
-                now_node.parent.score = score
                 return
             if now_node.left != None:
                 queue.append(now_node.left)
@@ -194,12 +191,12 @@ def test():
 
     # PAUSE HERE
     # testing winner function
-    t.setWinner("player3@example.com","3:0")
-    t.setWinner("player7@example.com","2:0")
+    t.setWinner("player3@example.com")
+    t.setWinner("player7@example.com")
     print()
     t.BFS()
-    t.setWinner("player6@example.com","3:0")
-    t.setWinner("player6@example.com","3:0")
+    t.setWinner("player6@example.com")
+    t.setWinner("player6@example.com")
     print()
     t.BFS()
     print()
