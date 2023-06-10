@@ -37,14 +37,17 @@
     </div>    
 
     {% if selected_tournament %}
-    <h2>Bracket for {{ selected_tournament }}</h2>
-    <label for="winner_name">Select a winner:</label>
-    <select name="winner_name" id="winner_name">
-        {% for player in pl %}
-        <option value = "{{ player}}">{{ player }}</option>
-        {% endfor %}
-        <button type="submit">Set a Winner</button>
-    </select>
+    <div class="container">
+        <form action="/bracket" method="POST">
+          <label for="winner_name">Select a Winner:</label>
+          <select name="winner_name" id="winner_name">
+            {% for player in pl %}
+            <option value="{{ player }}">{{ player }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">set Winner</button>
+        </form>
+      </div>
     
     <canvas id="treeCanvas" width="1200" height="1200"></canvas>
 
