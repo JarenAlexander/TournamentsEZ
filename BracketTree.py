@@ -1,6 +1,7 @@
 import sqlite3
 
 class Node():
+    # each node stands for each player, and the node will store their all information 
     def __init__(self, data):
 
         self.data = data[0] # There can be no two emails with the same name, so we are using it as the main data member
@@ -19,7 +20,7 @@ class Tree():
         self.root = None
 
     def add(self, data):
-
+        # each time calling this fction just add one player into the bracket tree
         node = Node(data)
         if self.root == None:
             self.root = node
@@ -41,12 +42,17 @@ class Tree():
                     myqueue.append(treeNode.left)
                     myqueue.append(treeNode.right)
     def BFS(self):
+        # this function is for testing if the bracket tree works
+        # it will use the BFS to print each player's name in the python file
         if self.root == None:
+            #the tree is empty
             return
         queue = []
         queue.append(self.root)
 
         while queue:
+            # each time just get the first one from the queue
+            # then git it's left and right children and put them in the last of the queue
             now_node = queue.pop(0)
             if now_node.data != "TBD":
                 name_to_print = now_node.fname + " " + now_node.lname
@@ -59,6 +65,8 @@ class Tree():
                 queue.append(now_node.right)
 
     def BFSList(self):
+        # same way with the BFS function just put the name into the list
+        # this function is use for get the data and put in to the html
         if self.root == None:
             return
         tl = []
@@ -79,6 +87,9 @@ class Tree():
         return tl
 
     def setWinner(self, email, score):
+        # using the player's email to search the winner
+        # afer just set the player to their uper layer
+        # and put the score the player got in laste match 
         if self.root == None:
             return
         queue = []
@@ -99,6 +110,9 @@ class Tree():
                 queue.append(now_node.right)
 
     def removePlayer(self, player):
+        #if player didn't show up in the match, remove the player
+        #this function also use the bfs way to search the player
+        #if find that player just remove
         if self.root == None:
             return
         queue = []
@@ -120,6 +134,7 @@ class Tree():
 
 
 def insertPlayer(playerlist):
+    # when the game statr just use the player list to insert the players in to the bracket tree
     tree = Tree()
     l = len(playerlist)
     for i in range(1, l * 2):
