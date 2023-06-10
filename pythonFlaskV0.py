@@ -226,7 +226,7 @@ def bracket():
 
         # Generate the tournament bracket using the Tree class
         player_tree = insertPlayer(player_list)
-        player_tree(selected_winner)
+        player_tree.setWinner(selected_winner)
         pl = player_tree.BFSList()
         players_name = player_tree.getPlayerList()
         
