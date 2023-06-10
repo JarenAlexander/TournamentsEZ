@@ -1,3 +1,13 @@
+"""
+This is the Python Flask code that acts as an interface between the frontend and database.
+
+Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
+
+Group Name: TournamentsEZ
+
+Last Modified: 6/9/2023
+"""
+
 from flask import Flask, render_template, url_for, request
 from BracketTree import Tree, insertPlayer, loadPlayerData, test
 import sqlite3
