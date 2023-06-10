@@ -204,7 +204,7 @@ def bracket():
         # Perform any required operations on the player_tree
 
         # Render the bracket.html template with the tournament data and bracket
-        return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, pl = pl, player_list = player_list)
+        return render_template('bracket.html', tournaments=tournaments, selected_tournament=selected_tournament, pl = pl)
 
     # Handle GET request, display the tournaments
     return render_template('bracket.html', tournaments=tournaments)
