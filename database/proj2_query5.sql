@@ -1,6 +1,6 @@
 /*
 
-This is a sample query, used for testing, that attempts to register a player for a tournament.
+This is a sample query, used for testing, that attempts to register a new player for a tournament.
 
 Authors: Jaren Alexander, Yankun Chen, Brett Fox, Kevin Truong, Sam Windheim
 
