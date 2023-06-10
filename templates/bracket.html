@@ -34,16 +34,20 @@
         </select>
         <button type="submit">Generate Bracket</button>
       </form>
-      <form action="/bracket" method="POST">
-        <label for="winner_name">Select the winner:</label>
-        <select name="winner_name" id="winner_name">
-          {% for player in player_list %}
-          <option value="{{ player }}">{{ player }}</option>
-          {% endfor %}
-        </select>
-        <button type="submit">set winner</button>
-      </form>
     </div>
+    {% if selected_tournament %}
+     <div class="container">
+       <form action="/bracket" method="POST">
+         <label for="winner_name">Select the winner:</label>
+         <select name="winner_name" id="winner_name">
+           {% for player in player_list %}
+           <option value="{{ player }}">{{ player }}</option>
+           {% endfor %}
+         </select>
+         <button type="submit">set winner</button>
+       </form>
+     </div>
+    {% endif %}
 
 
     {% if selected_tournament %}
